@@ -1,0 +1,197 @@
+[
+    {
+        "id": "5199fbd4.d70cec",
+        "type": "tab",
+        "label": "OPC_UA_Client",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3541f73d.f3ba28",
+        "type": "OPCUA-IIoT-Inject",
+        "z": "5199fbd4.d70cec",
+        "injectType": "listen",
+        "payload": "{ \"interval\": 500, \"queueSize\": 10 }",
+        "payloadType": "json",
+        "topic": "",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "startDelay": "",
+        "name": "Start Subscription",
+        "addressSpaceItems": [
+            {
+                "name": "Counter",
+                "nodeId": "ns=1;s=Isolated_Input1",
+                "datatypeName": ""
+            }
+        ],
+        "x": 230,
+        "y": 280,
+        "wires": [
+            [
+                "a8972b2d.2013f"
+            ]
+        ]
+    },
+    {
+        "id": "b33230a1.8a2d8",
+        "type": "debug",
+        "z": "5199fbd4.d70cec",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a8972b2d.2013f",
+        "type": "OPCUA-IIoT-Listener",
+        "z": "5199fbd4.d70cec",
+        "connector": "b98f961f.940bf",
+        "action": "subscribe",
+        "queueSize": 10,
+        "name": "",
+        "topic": "",
+        "justValue": true,
+        "useGroupItems": false,
+        "showStatusActivities": false,
+        "showErrors": false,
+        "x": 480,
+        "y": 260,
+        "wires": [
+            [
+                "4178fe5e.f20bd"
+            ]
+        ]
+    },
+    {
+        "id": "4178fe5e.f20bd",
+        "type": "OPCUA-IIoT-Result-Filter",
+        "z": "5199fbd4.d70cec",
+        "nodeId": "ns=1;s=Isolated_Input1",
+        "datatype": "Double",
+        "fixedValue": true,
+        "fixPoint": 2,
+        "withPrecision": false,
+        "precision": 2,
+        "entry": 1,
+        "justValue": true,
+        "withValueCheck": false,
+        "minvalue": "",
+        "maxvalue": "",
+        "defaultvalue": "",
+        "topic": "",
+        "name": "",
+        "showErrors": false,
+        "x": 730,
+        "y": 260,
+        "wires": [
+            [
+                "b33230a1.8a2d8",
+                "76625110d7239619"
+            ]
+        ]
+    },
+    {
+        "id": "32925846e1be9654",
+        "type": "ui_gauge",
+        "z": "5199fbd4.d70cec",
+        "name": "",
+        "group": "7f6b5387531b7b16",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "OPC UA Client",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1140,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "76625110d7239619",
+        "type": "function",
+        "z": "5199fbd4.d70cec",
+        "name": "function 3",
+        "func": "msg.payload = msg.payload.value;  \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 360,
+        "wires": [
+            [
+                "32925846e1be9654"
+            ]
+        ]
+    },
+    {
+        "id": "b98f961f.940bf",
+        "type": "OPCUA-IIoT-Connector",
+        "z": "5199fbd4.d70cec",
+        "discoveryUrl": "",
+        "endpoint": "opc.tcp://192.168.178.46:4844",
+        "endpointMustExist": false,
+        "keepSessionAlive": true,
+        "loginEnabled": false,
+        "name": "LOCAL DEMO SERVER",
+        "showErrors": false,
+        "securityPolicy": "None",
+        "securityMode": "None",
+        "individualCerts": false,
+        "publicCertificateFile": "",
+        "privateKeyFile": "",
+        "defaultSecureTokenLifetime": "60000",
+        "autoSelectRightEndpoint": false,
+        "strategyMaxRetry": "",
+        "strategyInitialDelay": "",
+        "strategyMaxDelay": "",
+        "strategyRandomisationFactor": "",
+        "requestedSessionTimeout": "",
+        "connectionStartDelay": "",
+        "reconnectDelay": "",
+        "maxBadSessionRequests": ""
+    },
+    {
+        "id": "7f6b5387531b7b16",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "959c33fa06610a05",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "959c33fa06610a05",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
